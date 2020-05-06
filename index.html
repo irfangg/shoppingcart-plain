@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Shopping cart</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"
+    />
+  </head>
+  <body>
+    <header>
+      <a href="#" class="logo"
+        ><i class="fa fa-2x fa-star" aria-hidden="true"></i
+      ></a>
+      <div class="header-right">
+        <i class="fa fa-2x fa-search" aria-hidden="true"> </i>
+        <a
+          href="./cart.html"
+          target="_blank"
+          class="cartLink fa fa-2x fa-shopping-cart"
+          ><span class="total-count badge badge-info"></span
+        ></a>
+      </div>
+    </header>
+
+    <section>
+      <div class="filter">
+        <p>
+          <label for="amount">Filters</label>
+        </p>
+        <span id="min"></span>
+        <span id="max"></span>
+        <div id="slider-range"></div>
+      </div>
+
+      <div class="products"></div>
+    </section>
+
+    <footer>
+      <p>Footer</p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/bundle.js"></script>
+  </body>
+</html>
