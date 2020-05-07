@@ -19,7 +19,10 @@
         ><i class="fa fa-2x fa-star" aria-hidden="true"></i
       ></a>
       <div class="header-right">
-        <i class="fa fa-2x fa-search" aria-hidden="true"> </i>
+        <div class="searchBar">
+          <input type="text" placeholder="please enter product name" />
+          <i class="fa fa-2x fa-search" aria-hidden="true"> </i>
+        </div>
         <a
           href="./cart.html"
           target="_blank"
@@ -38,7 +41,26 @@
         <span id="max"></span>
         <div id="slider-range"></div>
       </div>
-
+      <div class="sortBy">
+        <strong>Sort By</strong>
+        <ul>
+          <li>
+            <a href="#HighLow" data-value="highToLow" class="notActiveSort"
+              >Price -- High Low</a
+            >
+          </li>
+          <li>
+            <a href="#LowHigh" data-value="lowToHigh" class="notActiveSort"
+              >Price -- Low High</a
+            >
+          </li>
+          <li>
+            <a href="#Dicount" data-value="discount" class="notActiveSort"
+              >Discount</a
+            >
+          </li>
+        </ul>
+      </div>
       <div class="products"></div>
     </section>
 
