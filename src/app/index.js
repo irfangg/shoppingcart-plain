@@ -1,7 +1,7 @@
 import "./style.scss";
 
 function fetchAllProducts() {
-  fetch("../../Apparals.json")
+  fetch("https://my-json-server.typicode.com/irfangg/my-apparal-api/apparals")
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
