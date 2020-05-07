@@ -183,6 +183,25 @@ img.card-img-top {
   font-size: 16px;
   cursor: pointer;
 }
+.cart-summary {
+  display: grid;
+  grid-gap: 1rem;
+  padding: 1rem 1rem 1rem 0;
+  & .price-summary {
+    padding: 1rem;
+    background: #fff;
+    & h4:first-child {
+      color: #959696;
+      margin: 0;
+      padding: 1rem 0;
+      border-bottom: 1px solid #959696;
+    }
+    & i {
+      font-weight: bold;
+    }
+  }
+}
+
 /* Create two columns/boxes that floats next to each other */
 .filter {
   float: left;
