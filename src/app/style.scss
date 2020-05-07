@@ -55,6 +55,7 @@ header a.active {
 .header-right {
   float: right;
   color: #ffffff;
+  display: inline-flex;
 }
 
 @media screen and (max-width: 500px) {
@@ -148,7 +149,40 @@ img.card-img-top {
   text-align: center;
   background-clip: padding-box;
 }
-
+.cart-section {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+.cart-items {
+  display: grid;
+  grid-gap: 1rem;
+  padding: 1rem;
+}
+.fa-2x {
+  vertical-align: middle;
+}
+.item-count {
+  line-height: 32px;
+  text-align: center;
+}
+.cart-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 0.5fr;
+  align-items: center;
+  background-color: #fff;
+}
+.cart-item img,
+.cart-item .cart-item-count {
+  justify-self: center;
+}
+.delete-item {
+  border: 0;
+  background: transparent;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 16px;
+  cursor: pointer;
+}
 /* Create two columns/boxes that floats next to each other */
 .filter {
   float: left;
@@ -161,6 +195,29 @@ img.card-img-top {
 }
 .ui-slider-handle {
   border-radius: 100%;
+}
+
+.searchBar {
+  display: inline;
+}
+
+.notActiveSort {
+  text-decoration: none;
+}
+.sortBy {
+  display: inline-block;
+  & ul {
+    display: inline-block;
+    list-style-type: none;
+    margin: 1rem;
+    padding: 0;
+  }
+  & li {
+    display: inline;
+    & a {
+      padding: 1rem;
+    }
+  }
 }
 
 article {
