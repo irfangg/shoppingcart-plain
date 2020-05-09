@@ -18,12 +18,15 @@ function fetchAllProducts(sortType) {
         $(".products").append(`
           <div class="card product-item">
               <img
+              title="${d.product_type_name}"
               class="card-img-top"
               src="${d.medium_image_url}"
-              alt=${d.title}
+              alt="${d.title}"
               />
               <div class="card-block">
-              <div class="card-title">${d.product_type_name}</div>
+              <div class="card-title" title="${d.title}">${
+          d.title.substring(0, 15) + "..."
+        }</div>
               <div class="price-details">
               <span class="finalprice">
               <i class='fa fa-rupee'>${d.Final_Price.toFixed(2)}</i>
@@ -136,6 +139,29 @@ $(function () {
     let sortBy = $(this).data("value");
     fetchAllProducts(sortBy);
   });
+
+  const debounce = (func, delay) => {
+    let debounceTimer;
+    return function () {
+      const context = this;
+      const args = arguments;
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => func.apply(context, args), delay);
+    };
+  };
+  $(".searchBar .search-product").on(
+    "keyup",
+    debounce(function () {
+      let input = $(this)[0].value;
+      $(".products .product-item")
+        .fadeOut()
+        .filter(function () {
+          let name = $(this).find(".card-title").html();
+          return input ? name.match(new RegExp(input, "ig")) && true : true;
+        })
+        .fadeIn();
+    }, 300)
+  );
 });
 
 var shoppingCart = (function () {
