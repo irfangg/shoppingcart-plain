@@ -67,16 +67,27 @@ function fetchAllProducts(sortType) {
 
 function showProducts(minPrice, maxPrice) {
   $(".products .product-item")
+    .fadeOut()
     .hide()
     .filter(function () {
       console.log(this, minPrice, maxPrice);
       var price = parseInt($(this).find(" .finalprice i.fa-rupee").html(), 10);
       return price >= minPrice && price <= maxPrice;
     })
+    .fadeIn()
     .show();
 }
 
 $(function () {
+  const debounce = (func, delay) => {
+    let debounceTimer;
+    return function () {
+      const context = this;
+      const args = arguments;
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => func.apply(context, args), delay);
+    };
+  };
   var options = {
       range: true,
       min: 0,
@@ -87,7 +98,7 @@ $(function () {
         $("#min").appendTo($("#slider-range > span:eq(0)"));
         $("#max").appendTo($("#slider-range > span:eq(1)"));
       },
-      slide: function (event, ui) {
+      slide: debounce(function (event, ui) {
         var min = ui.values[0],
           max = ui.values[1];
 
@@ -95,7 +106,7 @@ $(function () {
           .find("span")
           .html(`<i class='fa fa-rupee'>${ui.value}</i>`);
         showProducts(min, max);
-      },
+      }, 300),
     },
     min,
     max;
@@ -140,15 +151,6 @@ $(function () {
     fetchAllProducts(sortBy);
   });
 
-  const debounce = (func, delay) => {
-    let debounceTimer;
-    return function () {
-      const context = this;
-      const args = arguments;
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => func.apply(context, args), delay);
-    };
-  };
   $(".searchBar .search-product").on(
     "keyup",
     debounce(function () {
@@ -162,6 +164,41 @@ $(function () {
         .fadeIn();
     }, 300)
   );
+
+  $(".sortBy h4").on("click", function () {
+    $(window).width() < 500 && $("#myModal").show();
+  });
+  $("#myModal .modal-header .close").on("click", function () {
+    $("#myModal").hide();
+  });
+  $("#myModal .modal-footer .modal-close").on("click", function () {
+    $("#myModal").hide();
+  });
+  $("#myModal .modal-apply").on("click", function () {
+    $(".products").empty();
+    fetchAllProducts($("input[name='sortBy']:checked").val());
+    $("#myModal").hide();
+  });
+
+  $(".filter h4").on("click", function () {
+    if ($(window).width() < 500) {
+      $("#myModal-filter .modal-body").empty();
+      $(".slider-container").appendTo($("#myModal-filter .modal-body")),
+        $("#myModal-filter").show();
+    }
+  });
+  $("#myModal-filter .modal-apply").on("click", function () {
+    $(".slider-container").appendTo($(".filter"));
+    $("#myModal-filter").hide();
+  });
+  $("#myModal-filter .modal-header .close").on("click", function () {
+    $(".slider-container").appendTo($(".filter"));
+    $("#myModal-filter").hide();
+  });
+  $("#myModal-filter .modal-footer .modal-close").on("click", function () {
+    $(".slider-container").appendTo($(".filter"));
+    $("#myModal-filter").hide();
+  });
 });
 
 var shoppingCart = (function () {
@@ -326,27 +363,31 @@ function displayCart() {
   for (let item of cartArray) {
     output += `
     <div class="cart-item">
+      <div class="img-container">
       <img src=${item.image} alt=${item.name} />
+      </div>
+      <div class="cart-details">
       <div class="cart-item-details">
-        <h6>${item.name}</h6>
-        <div class="price-details">
-          <span class="finalprice">${item.finalPrice?.toFixed(2)}</span>
-          <span class="originalprice">${item.price?.toFixed(2)}</span>
-          <span class="discountpercentage">${item.disc}%</span>
-        </div>
+      <h6>${item.name}</h6>
+      <div class="price-details">
+        <span class="finalprice">${item.finalPrice?.toFixed(2)}</span>
+        <span class="originalprice">${item.price?.toFixed(2)}</span>
+        <span class="discountpercentage">${item.disc}%</span>
       </div>
-      <div class='input-group cart-item-count'>
-        <i class="fa fa-2x fa-minus-circle minus-item input-group-addon btn btn-primary"
-          data-id="${item.id}"></i>
-        <input type='number' class='item-count form-control' 
-          data-id="${item.id}" 
-          value=${item.count}>
-        <i class="fa fa-2x fa-plus-circle plus-item btn btn-primary input-group-addon"
-          data-id="${item.id}"></i>
-      </div>
-      <div class="cart-item-delete">
-      <button class='delete-item btn btn-danger' 
-        data-id="${item.id}">Remove</button>
+    </div>
+    <div class='input-group cart-item-count'>
+      <i class="fa fa-2x fa-minus-circle minus-item input-group-addon btn btn-primary"
+        data-id="${item.id}"></i>
+      <input type='number' class='item-count form-control' 
+        data-id="${item.id}" 
+        value=${item.count}>
+      <i class="fa fa-2x fa-plus-circle plus-item btn btn-primary input-group-addon"
+        data-id="${item.id}"></i>
+    </div>
+    <div class="cart-item-delete">
+    <button class='delete-item btn btn-danger' 
+      data-id="${item.id}">Remove</button>
+    </div>
       </div>
     </div>
     `;
