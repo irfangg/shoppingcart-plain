@@ -1,6 +1,7 @@
 import "./style.scss";
 
 function fetchAllProducts(sortType) {
+  $(".loader").show();
   fetch("https://my-json-server.typicode.com/irfangg/my-apparal-api/apparals")
     .then((response) => response.json())
     .then((data) => {
@@ -49,7 +50,7 @@ function fetchAllProducts(sortType) {
           </div>
           `);
       });
-
+      $(".loader").hide();
       $(".product-item a.add-to-cart").on("click", function (event) {
         event.preventDefault();
         var id = $(this).data("id");

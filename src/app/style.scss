@@ -156,10 +156,22 @@ header {
 }
 
 .wrapper {
+  position: relative;
   display: grid;
   grid-template-areas:
     "filter sortBy sortBy sortBy sortBy"
     "filter products products products products";
+  & .loader {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    & p {
+      font-weight: bold;
+      font-size: larger;
+    }
+  }
   & .filter {
     grid-area: filter;
     padding: 1rem;
